@@ -9,6 +9,12 @@ public class PlayerAttack_0 : MonoBehaviour
 
     private EventWindow _atkTimer = new(0);
     private bool _isAttacking;
+    private Collider2D _atkCollider;
+
+    private void Awake()
+    {
+        _atkCollider = atkObj.GetComponent<Collider2D>();
+    }
 
     public void Attack()
     {
