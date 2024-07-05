@@ -232,11 +232,33 @@
                 },
                 {
                     "name": "",
+                    "id": "952a49ff-8c9b-421f-bab5-94b557178e8a",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack_0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f955e54b-fd9c-48ed-ab37-0be523a16362",
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "Attack_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99970c32-229d-4f9c-a724-e9dbe412e3a6",
+                    "path": "<XInputController>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Attack_1",
                     "isComposite": false,
                     "isPartOfComposite": false

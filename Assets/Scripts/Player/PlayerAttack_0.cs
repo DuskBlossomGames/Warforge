@@ -6,14 +6,15 @@ public class PlayerAttack_0 : MonoBehaviour
 {
     public GameObject atkObj;
     public uint atkTime;
+    public uint baseDmg;
 
     private EventWindow _atkTimer = new(0);
     private bool _isAttacking;
-    private Collider2D _atkCollider;
+    private ColliderAccum _atkCollider;
 
     private void Awake()
     {
-        _atkCollider = atkObj.GetComponent<Collider2D>();
+        _atkCollider = atkObj.GetComponent<ColliderAccum>();
     }
 
     public void Attack()
@@ -22,7 +23,16 @@ public class PlayerAttack_0 : MonoBehaviour
         {
             _isAttacking = true;
             _atkTimer.RestartAt(atkTime);
-            atkObj.SetActive(true);
+            atkObj.GetComponent<SpriteRenderer>().enabled = true;
+            foreach (var target in _atkCollider.GetColliders())
+            {
+                //Debug.LogFormat("Found collider with name: {0}", target.gameObject.name);
+                if (target.TryGetComponent<EnemyHealth>(out var comp))
+                {
+                    comp.Damage(baseDmg);
+                }
+            }
+            
         }
     }
 
@@ -34,7 +44,7 @@ public class PlayerAttack_0 : MonoBehaviour
             _isAttacking = _atkTimer.isActive;
             if (!_isAttacking)
             {
-                atkObj.SetActive(false);
+                atkObj.GetComponent<SpriteRenderer>().enabled = false;
             }
         }
     }

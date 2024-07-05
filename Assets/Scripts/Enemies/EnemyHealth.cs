@@ -9,18 +9,31 @@ public class EnemyHealth : MonoBehaviour
     public uint resistance;
 
     private static float _kResCoef = Mathf.Pow(Mathf.PI, 10f); //Dont ask why, but this makes the math work
+    private DmgNumInstancer _dmgVis;
+
+    private void Awake()
+    {
+        _dmgVis = Camera.main.GetComponent<DmgNumInstancer>();
+    }
 
     public void Damage(uint dmg)
     {
         float inDmg = dmg;
         float truedmg = dmg * dmg / Mathf.Pow(Mathf.Pow(inDmg, 10f) + _kResCoef * Mathf.Pow(resistance, 10f), .1f);
-        uint finalDmg = (uint)-Mathf.RoundToInt(-truedmg) + 1;
+        uint finalDmg = (uint)-Mathf.FloorToInt(-truedmg);
 
-        currhealth -= finalDmg;
-        if(currhealth <= 0)
+        if (finalDmg >= currhealth)
         {
             OnDeath();
+            currhealth = 0;
         }
+        else 
+        {
+            currhealth -= finalDmg;
+        }
+        //Debug.LogFormat("_dmgVis = {0}", _dmgVis);
+        _dmgVis.Spawn((int)finalDmg, transform.position);
+        
     }
 
     void OnDeath()
