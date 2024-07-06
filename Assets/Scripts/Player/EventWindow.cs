@@ -10,6 +10,7 @@ public class EventWindow
     public bool hasEnded { get; private set; }
     public EventWindow(uint maxDuration, bool startActive = true)
     {
+        //AutoTick();
         duration = maxDuration;
         time = startActive ? duration : 0;
 
@@ -35,6 +36,20 @@ public class EventWindow
         {
             isActive = false;
             hasEnded = true;
+        }
+    }
+
+    public void AutoTick()
+    {
+        Camera.main.GetComponent<MonoBehaviour>().StartCoroutine(AutoTicker());
+    }
+
+    public IEnumerator AutoTicker()
+    {
+        while (true)
+        {
+            Tick();
+            yield return new WaitForFixedUpdate();
         }
     }
 

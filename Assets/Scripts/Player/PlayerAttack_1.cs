@@ -51,6 +51,11 @@ public class PlayerAttack_1 : MonoBehaviour
                 {
                     ai.Knockback(0, yKb);
                 }
+
+                if (target.transform.TryGetComponent<CollisionDamage>(out var cd))
+                {
+                    cd.StunFor(25);
+                }
             }
 
             _isAttacking = _atkTimer.isActive;
