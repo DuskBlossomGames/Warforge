@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
 
-public class PlayerAttack_0 : MonoBehaviour
+public class PlayerAttack_1 : MonoBehaviour
 {
     public GameObject atkObj;
     public uint atkTime;
@@ -29,15 +29,10 @@ public class PlayerAttack_0 : MonoBehaviour
         {
             _isAttacking = true;
             _atkTimer.RestartAt(atkTime);
-            _controller.Dash(atkTime);
             _controller.NoGrav(atkTime);
             _prevXpos = 0;
             atkObj.GetComponent<SpriteRenderer>().enabled = true;
-            foreach (var target in _atkCollider.GetColliders())
-            {
-                //Debug.LogFormat("Found collider with name: {0}", target.gameObject.name);
-            }
-            
+
         }
     }
 
@@ -48,13 +43,13 @@ public class PlayerAttack_0 : MonoBehaviour
         {
             float newXpos = dashPosition.Evaluate(1 - _atkTimer.Percent());
             float vel = _controller.playerDir * (newXpos - _prevXpos) / Time.fixedDeltaTime;
-            _controller.SetXVel(vel);
+            _controller.SetYVel(vel);
 
             foreach (var target in _atkCollider.GetColliders())
             {
                 if (target.transform.parent.TryGetComponent<RunAtPlayerAI>(out var ai))
                 {
-                    ai.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, 0);
+                    ai.Knockback(0, yKb);
                 }
             }
 
