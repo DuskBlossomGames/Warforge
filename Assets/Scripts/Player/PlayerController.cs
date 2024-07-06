@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public float currSpeed;
     public float accelSpeed;
 
+    public Vector2 velocity { get { return _rb.velocity; } }
+
     public float gravity;
     public float jumpHeight;
     public float jumpShortHeight;

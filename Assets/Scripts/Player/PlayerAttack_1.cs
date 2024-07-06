@@ -42,7 +42,7 @@ public class PlayerAttack_1 : MonoBehaviour
         if (_isAttacking)
         {
             float newXpos = dashPosition.Evaluate(1 - _atkTimer.Percent());
-            float vel = _controller.playerDir * (newXpos - _prevXpos) / Time.fixedDeltaTime;
+            float vel = (newXpos - _prevXpos) / Time.fixedDeltaTime;
             _controller.SetYVel(vel);
 
             foreach (var target in _atkCollider.GetColliders())

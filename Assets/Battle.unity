@@ -791,6 +791,7 @@ MonoBehaviour:
   baseDmg: 100
   xKb: 4
   yKb: 1
+  yvelDec: 0.9
   dashPosition:
     serializedVersion: 2
     m_Curve:
@@ -845,6 +846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f507a36b742d6e54499aa072f3999887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prebuffersize: 6
   attack_0_script: {fileID: 215787045}
   attack_1_script: {fileID: 215787047}
 --- !u!114 &215787047

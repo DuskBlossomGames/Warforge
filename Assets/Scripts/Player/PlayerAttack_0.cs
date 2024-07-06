@@ -9,6 +9,7 @@ public class PlayerAttack_0 : MonoBehaviour
     public uint atkTime;
     public uint baseDmg;
     public float xKb, yKb;
+    public float yvelDec;
     public AnimationCurve dashPosition;
 
     private EventWindow _atkTimer = new(0);
@@ -49,6 +50,7 @@ public class PlayerAttack_0 : MonoBehaviour
             float newXpos = dashPosition.Evaluate(1 - _atkTimer.Percent());
             float vel = _controller.playerDir * (newXpos - _prevXpos) / Time.fixedDeltaTime;
             _controller.SetXVel(vel);
+            _controller.SetYVel(_controller.velocity.y * yvelDec);
 
             foreach (var target in _atkCollider.GetColliders())
             {
