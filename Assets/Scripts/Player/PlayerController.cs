@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public float maxHealth;
+    private float _curHealth;
+
+    public uint knockbackFreezeTime;
     public float floorSpeed;
     public float currSpeed;
     public float accelSpeed;
@@ -16,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public uint jumpHighTime;
     private EventWindow _jumpPreBuffer;
     private EventWindow _jumpHold;
+    private EventWindow _knockback;
 
     public FloorCheck floorCheck;
     private Rigidbody2D _rb;
@@ -28,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        _curHealth = maxHealth;
+        
         _rb = GetComponent<Rigidbody2D>();
         _moveAct = InputSystem.actions.FindAction("Move");
         _jumpAct = InputSystem.actions.FindAction("Jump");
@@ -36,15 +43,17 @@ public class PlayerController : MonoBehaviour
         _jumpHold = new(0);
 
         _jumpPreBuffer = new EventWindow(jumpPreBuffer, startActive: false);
+        _knockback = new EventWindow(knockbackFreezeTime, startActive: false);
     }
 
     private void FixedUpdate()
     {
         _jumpPreBuffer.Tick();
         _jumpHold.Tick();
+        _knockback.Tick();
 
         Vector2 movement = _moveAct.ReadValue<Vector2>();
-        float lateral = movement.x;
+        float lateral = _knockback.isActive ? 0 : movement.x;
 
         if (DidJump())
         {
@@ -85,5 +94,20 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void Damage(float damage)
+    {
+        if ((_curHealth -= damage) < 0)
+        {
+            Destroy(gameObject);
+        } 
+    }
+
+    public void Knockback(float xvel, float yvel)
+    {
+        currSpeed = xvel;
+        _rb.velocity = _rb.velocity * Vector2.right + yvel * Vector2.up;
+        _knockback.Restart();
     }
 }
