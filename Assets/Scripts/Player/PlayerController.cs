@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using HUD;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
-    public HealthBar healthBar;
+    public int[] xpLevels;
+    private int _upgradeLevel;
+    private int _currentXp;
+    
+    public HUDBar xpBar, healthBar;
     public float maxHealth;
     private float _curHealth;
 
@@ -121,6 +126,18 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    public void GainXp(int xp)
+    {
+        _currentXp += xp;
+        if (xpLevels[_upgradeLevel] <= _currentXp)
+        {
+            // TODO: upgrade
+            _currentXp -= xpLevels[_upgradeLevel++];
+        }
+        
+        xpBar.UpdatePercent((float) _currentXp / xpLevels[_upgradeLevel]);
+    }
+
     public void Damage(float damage)
     {
         if ((_curHealth -= damage) < 0)
@@ -128,7 +145,7 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject);
         }
         
-        healthBar.UpdatePercent(_curHealth/maxHealth);
+        healthBar.UpdatePercent(1-_curHealth/maxHealth);
     }
 
     public void Knockback(float xDist, float yDist)

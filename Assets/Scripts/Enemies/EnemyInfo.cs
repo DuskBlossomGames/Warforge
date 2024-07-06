@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyInfo : MonoBehaviour
 {
     public uint maxhealth;
     public uint currhealth;
+    public uint xp;
+    public PlayerController player;
     public uint resistance;
 
     private static float _kResCoef = Mathf.Pow(Mathf.PI, 10f); //Dont ask why, but this makes the math work
@@ -38,6 +40,7 @@ public class EnemyHealth : MonoBehaviour
 
     void OnDeath()
     {
+        player.GainXp((int) xp);
         Destroy(gameObject);
     }
 }

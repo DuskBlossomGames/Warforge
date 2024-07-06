@@ -78,6 +78,8 @@ namespace LevelManaging
                 {
                     ai.player = player;
                 }
+
+                enemy.GetComponent<EnemyInfo>().player = player;
                 enemy.transform.position = new Vector3((left ? -1 : 1) *
                                                        (camWidth+1+enemyWidth/2 + enemyWidth*3/2*(left ? i : i-num/2)), 0, 0);
                 
