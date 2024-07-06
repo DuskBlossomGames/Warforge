@@ -13,7 +13,7 @@ public class EventWindow
         duration = maxDuration;
         time = startActive ? duration : 0;
 
-        if (maxDuration != 0) {
+        if (time != 0) {
             isActive = true;
             hasEnded = false;
         } else

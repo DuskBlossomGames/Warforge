@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private float _curHealth;
 
     public uint knockbackFreezeTime;
+    public float knockbackDecel;
     public float floorSpeed;
     public float currSpeed;
     public float accelSpeed;
@@ -29,7 +30,8 @@ public class PlayerController : MonoBehaviour
     private bool _hasJumped;
     private float _jumpVel;
     private float _jumpShortDelta;
-
+    
+    public bool IsJumping { get; private set; }
 
     private void Awake()
     {
@@ -53,11 +55,13 @@ public class PlayerController : MonoBehaviour
         _knockback.Tick();
 
         Vector2 movement = _moveAct.ReadValue<Vector2>();
-        float lateral = _knockback.isActive ? 0 : movement.x;
+        float lateral = movement.x;
 
+        IsJumping &= !floorCheck.isGrounded;
         if (DidJump())
         {
             _jumpPreBuffer.RestartAt(jumpPreBuffer);
+            IsJumping = true;
         } 
         if (floorCheck.isGrounded && _jumpPreBuffer.isActive) {
             _jumpPreBuffer.Zero();
@@ -70,7 +74,14 @@ public class PlayerController : MonoBehaviour
             _jumpHold.Zero();
         }
 
-        currSpeed = Mathf.Lerp(currSpeed, floorSpeed * lateral, accelSpeed);
+        if (!_knockback.isActive)
+        {
+            currSpeed = Mathf.Lerp(currSpeed, floorSpeed * lateral, accelSpeed);
+        }
+        else
+        {
+            currSpeed -= knockbackDecel;
+        }
         transform.localScale = Util.SetX(transform.localScale, lateral > 0 ? 1 : lateral < 0 ? -1 : transform.localScale.x);
 
         _rb.velocity = new Vector2(currSpeed, _rb.velocity.y);
@@ -104,10 +115,12 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
-    public void Knockback(float xvel, float yvel)
+    public void Knockback(float xDist, float yDist)
     {
-        currSpeed = xvel;
-        _rb.velocity = _rb.velocity * Vector2.right + yvel * Vector2.up;
+        IsJumping = false;
+        
+        currSpeed = Mathf.Sqrt(2 * knockbackDecel/Time.fixedDeltaTime * xDist);
+        _rb.velocity = _rb.velocity * Vector2.right + Mathf.Sqrt(2 * yDist * gravity) * Vector2.up;
         _knockback.Restart();
     }
 }
