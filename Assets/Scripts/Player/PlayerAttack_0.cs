@@ -29,7 +29,7 @@ public class PlayerAttack_0 : MonoBehaviour
                 //Debug.LogFormat("Found collider with name: {0}", target.gameObject.name);
                 if (target.TryGetComponent<EnemyHealth>(out var comp))
                 {
-                    comp.Damage(baseDmg);
+                    comp.Damage((uint)Mathf.FloorToInt((float)baseDmg * Random.Range(.85f, 1.15f)));
                 }
             }
             
