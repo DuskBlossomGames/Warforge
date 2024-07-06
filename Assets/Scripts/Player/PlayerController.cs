@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         } 
         if (floorCheck.isGrounded && _jumpPreBuffer.isActive) {
             _jumpPreBuffer.Zero();
-            _rb.velocity = new Vector2(0, _jumpVel);
+            _rb.velocity = new Vector2(_rb.velocity.x, _jumpVel);
             _jumpHold.RestartAt(jumpHighTime);
         }
         if (!_jumpAct.IsPressed() && _jumpHold.isActive)
