@@ -1,11 +1,3 @@
-Logs/
-Temp/
-*cache*
-*Cache*
-.vs/
 Library/
+Logs/
 UserSettings/
-Packages/packages-lock.json
-ProjectSettings/ProjectVersion.txt
-Assembly-CSharp.csproj
-*.DS_Store

@@ -761,6 +761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984ea5aeefb31d34392b5b5d68ddbc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 1000
+  knockbackFreezeTime: 10
   floorSpeed: 20
   currSpeed: 0
   accelSpeed: 0.45
@@ -1079,6 +1081,7 @@ GameObject:
   - component: {fileID: 825199989}
   - component: {fileID: 825199991}
   - component: {fileID: 825199990}
+  - component: {fileID: 825199992}
   m_Layer: 13
   m_Name: Enemy
   m_TagString: Untagged
@@ -1240,6 +1243,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &825199992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825199986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed918dc25e9e44239b9ade94b233813b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 30
+  xKb: 70
+  yKb: 20
 --- !u!1 &878123130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1429,7 @@ GameObject:
   - component: {fileID: 934541751}
   - component: {fileID: 934541750}
   - component: {fileID: 934541749}
+  - component: {fileID: 934541754}
   m_Layer: 13
   m_Name: Enemy (2)
   m_TagString: Untagged
@@ -1573,6 +1592,21 @@ Transform:
   - {fileID: 1839427503}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &934541754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934541748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed918dc25e9e44239b9ade94b233813b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 30
+  xKb: 70
+  yKb: 20
 --- !u!1 &1253382089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,6 +1620,7 @@ GameObject:
   - component: {fileID: 1253382092}
   - component: {fileID: 1253382091}
   - component: {fileID: 1253382090}
+  - component: {fileID: 1253382095}
   m_Layer: 13
   m_Name: Enemy (1)
   m_TagString: Untagged
@@ -1747,6 +1782,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1253382095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253382089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed918dc25e9e44239b9ade94b233813b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 30
+  xKb: 70
+  yKb: 20
 --- !u!1 &1839427498
 GameObject:
   m_ObjectHideFlags: 0
