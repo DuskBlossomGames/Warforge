@@ -2,3 +2,6 @@ Library/
 Logs/
 UserSettings/
 Temp/
+obj/
+Assembly-CSharp.csproj
+.idea/
