@@ -416,7 +416,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179132408}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -762,8 +762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  knockbackFreezeTime: 10
-  knockbackDecel: 3
+  knockbackFreezeTime: 15
   floorSpeed: 20
   currSpeed: 0
   accelSpeed: 0.45
@@ -1301,6 +1300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 13
+  knockbackFreezeTime: 15
   jumpHeight: 4
   jumpRange: 5
   jumpDelay: 20
@@ -1746,7 +1746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 30
-  xKb: 6
+  xKb: 5
   yKb: 1
 --- !u!1 &1253382089
 GameObject:

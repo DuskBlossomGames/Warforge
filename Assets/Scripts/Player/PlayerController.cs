@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private float _curHealth;
 
     public uint knockbackFreezeTime;
-    public float knockbackDecel;
     public float floorSpeed;
     public float currSpeed;
     public float accelSpeed;
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private EventWindow _jumpPreBuffer;
     private EventWindow _jumpHold;
     private EventWindow _knockback;
+    private float _knockbackDecel;
     private EventWindow _dashAtk = new(0);
 
     public float playerDir { get { return transform.localScale.x; } }
@@ -124,8 +125,10 @@ public class PlayerController : MonoBehaviour
     {
         if (_dashAtk.isActive) return;
         IsJumping = false;
+
+        _knockbackDecel = 2 * xDist / Mathf.Pow(knockbackFreezeTime * Time.fixedDeltaTime, 2);
         
-        currSpeed = Mathf.Sign(xDist) * Mathf.Sqrt(2 * knockbackDecel/Time.fixedDeltaTime * Mathf.Abs(xDist));
+        currSpeed = Mathf.Sign(xDist)*Mathf.Sqrt(2 * Math.Abs(_knockbackDecel * xDist));
         _rb.velocity = _rb.velocity * Vector2.right + Mathf.Sqrt(2 * yDist * gravity) * Vector2.up;
         _knockback.Restart();
     }
