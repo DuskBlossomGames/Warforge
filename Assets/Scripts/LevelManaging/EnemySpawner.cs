@@ -30,7 +30,7 @@ namespace LevelManaging
             _elevatorRaise = new EventWindow(elevatorRaiseTime, false);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _elevatorRaise.Tick();
             if (_elevatorRaise.isActive)

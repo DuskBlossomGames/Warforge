@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using HUD;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public HealthBar healthBar;
     public float maxHealth;
     private float _curHealth;
 
@@ -126,7 +128,9 @@ public class PlayerController : MonoBehaviour
         if ((_curHealth -= damage) < 0)
         {
             Destroy(gameObject);
-        } 
+        }
+        
+        healthBar.UpdatePercent(_curHealth/maxHealth);
     }
 
     public void Knockback(float xDist, float yDist)
