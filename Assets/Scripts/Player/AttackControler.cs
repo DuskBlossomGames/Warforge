@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class AttackControler : MonoBehaviour
 {
     public PlayerAttack_0 attack_0_script;
+    public PlayerAttack_1 attack_1_script;
 
     private InputAction _atk_0;
     private InputAction _atk_1;
@@ -13,6 +14,7 @@ public class AttackControler : MonoBehaviour
     private bool _didAtk_0;
     private bool _didAtk_1;
     private PlayerController _controller;
+    private EventWindow _cooldown = new(0);
 
 
     void Awake()
@@ -25,9 +27,22 @@ public class AttackControler : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (DidAtk_0())
-        {
-            attack_0_script.Attack();
+        _cooldown.Tick();
+        if (_cooldown.hasEnded) {
+
+            if (DidAtk_0())
+            {
+                attack_0_script.Attack();
+                _cooldown.RestartAt(attack_0_script.atkTime);
+                return;
+            }
+
+            if (DidAtk_1() && _controller.floorCheck.isGrounded)
+            {
+                attack_1_script.Attack();
+                _cooldown.RestartAt(attack_1_script.atkTime);
+                return;
+            }
         }
     }
     private void Update()

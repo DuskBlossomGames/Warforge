@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private EventWindow _knockback;
     private float _knockbackDecel;
     private EventWindow _dashAtk = new(0);
+    private EventWindow _jmpAtk = new(0);
 
     public float playerDir { get { return transform.localScale.x; } }
 
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
         _jumpHold.Tick();
         _knockback.Tick();
         _dashAtk.Tick();
+        _jmpAtk.Tick();
 
         Vector2 movement = _moveAct.ReadValue<Vector2>();
         float lateral = movement.x;
@@ -91,7 +93,11 @@ public class PlayerController : MonoBehaviour
         transform.localScale = Util.SetX(transform.localScale, lateral > 0 ? 1 : lateral < 0 ? -1 : playerDir);
 
         _rb.velocity = new Vector2(currSpeed, _rb.velocity.y);
-        _rb.velocity -= new Vector2(0, gravity) * Time.fixedDeltaTime;
+
+        if (_jmpAtk.hasEnded)
+        {
+            _rb.velocity -= new Vector2(0, gravity) * Time.fixedDeltaTime;
+        }
     }
 
     /* Sync across video frames and engine frames */
@@ -138,9 +144,19 @@ public class PlayerController : MonoBehaviour
         _dashAtk.RestartAt(frames);
     }
 
+    public void NoGrav(uint frames)
+    {
+        _jmpAtk.RestartAt(frames);
+    }
+
     public void SetXVel(float xvel)
     {
         currSpeed = xvel;
         _rb.velocity = new Vector2(xvel, _rb.velocity.y);
+    }
+
+    public void SetYVel(float yvel)
+    {
+        _rb.velocity = new Vector2(_rb.velocity.x, yvel);
     }
 }
