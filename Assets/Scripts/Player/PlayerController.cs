@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         if (!_knockback.isActive && !_dashAtk.isActive)
         {
-            float modAccelSpeed = currSpeed * floorSpeed * lateral == 0 ? accelSpeed / 2 : accelSpeed;
+            float modAccelSpeed = currSpeed * floorSpeed * lateral == 0 ? accelSpeed / 3 : accelSpeed;
             currSpeed = Mathf.Lerp(currSpeed, floorSpeed * lateral, modAccelSpeed);
         }
         else if (_knockback.isActive)
@@ -140,6 +140,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetXVel(float xvel)
     {
+        currSpeed = xvel;
         _rb.velocity = new Vector2(xvel, _rb.velocity.y);
     }
 }

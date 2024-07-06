@@ -35,15 +35,6 @@ public class PlayerAttack_0 : MonoBehaviour
             foreach (var target in _atkCollider.GetColliders())
             {
                 //Debug.LogFormat("Found collider with name: {0}", target.gameObject.name);
-                if (target.transform.parent.TryGetComponent<EnemyHealth>(out var comp))
-                {
-                    comp.Damage((uint)Mathf.FloorToInt((float)baseDmg * Random.Range(.85f, 1.15f)));
-                }
-
-                if (target.transform.parent.TryGetComponent<RunAtPlayerAI>(out var ai))
-                {
-                    ai.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, yKb);
-                }
             }
             
         }
@@ -58,10 +49,29 @@ public class PlayerAttack_0 : MonoBehaviour
             float vel = _controller.playerDir * (newXpos - _prevXpos) / Time.fixedDeltaTime;
             _controller.SetXVel(vel);
 
+            foreach (var target in _atkCollider.GetColliders())
+            {
+                if (target.transform.parent.TryGetComponent<RunAtPlayerAI>(out var ai))
+                {
+                    ai.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, 0);
+                }
+            }
+
             _isAttacking = _atkTimer.isActive;
             if (!_isAttacking)
             {
                 atkObj.GetComponent<SpriteRenderer>().enabled = false;
+                foreach (var target in _atkCollider.GetColliders())
+                {
+                    if (target.transform.parent.TryGetComponent<EnemyHealth>(out var comp))
+                    {
+                        comp.Damage((uint)Mathf.FloorToInt((float)baseDmg * Random.Range(.85f, 1.15f)));
+                        if (target.transform.parent.TryGetComponent<RunAtPlayerAI>(out var ai))
+                        {
+                            ai.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, yKb);
+                        }
+                    }
+                }
             }
         }
     }
