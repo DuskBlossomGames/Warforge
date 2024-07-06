@@ -15,10 +15,12 @@ namespace LevelManaging
         public float elevatorVel;
         public uint elevatorRaiseTime;
         public PlayerController player;
+        public UnityEngine.UI.Text leveltext;
 
         private readonly List<GameObject> _enemies = new();
         private EventWindow _elevatorRaise;
         private Camera _cam;
+        private int _levelID = 1;
         
         private float _displacementPerFrame;
         
@@ -44,6 +46,8 @@ namespace LevelManaging
                     elevator.transform.position -= elevatorRaiseTime * _displacementPerFrame * Vector3.up;
                     player.transform.position -= elevatorRaiseTime * _displacementPerFrame * Vector3.up;
                     _cam.transform.position -= elevatorRaiseTime * _displacementPerFrame * Vector3.up;
+                    _levelID += 1;
+                    leveltext.text = _levelID.ToString();
                 }
 
                 if (_elevatorRaise.time == 0)
