@@ -64,7 +64,7 @@ public class PlayerAttack_1 : MonoBehaviour
                 atkObj.GetComponent<SpriteRenderer>().enabled = false;
                 foreach (var target in _atkCollider.GetColliders())
                 {
-                    if (target.transform.parent.TryGetComponent<EnemyHealth>(out var comp))
+                    if (target.transform.parent.TryGetComponent<EnemyInfo>(out var comp))
                     {
                         comp.Damage((uint)Mathf.FloorToInt((float)baseDmg * Random.Range(.85f, 1.15f)));
                         if (target.transform.parent.TryGetComponent<RunAtPlayerAI>(out var ai))

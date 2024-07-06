@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 300
   currhealth: 300
+  xp: 15
   resistance: 0
 --- !u!50 &5326599476989559784
 Rigidbody2D:
