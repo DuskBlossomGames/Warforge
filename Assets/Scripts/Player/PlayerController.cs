@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour
     private EventWindow _jumpPreBuffer;
     private EventWindow _jumpHold;
     private EventWindow _knockback;
+    private EventWindow _dashAtk = new(0);
+
+    public float playerDir { get { return transform.localScale.x; } }
 
     public FloorCheck floorCheck;
     private Rigidbody2D _rb;
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviour
         _jumpPreBuffer.Tick();
         _jumpHold.Tick();
         _knockback.Tick();
+        _dashAtk.Tick();
 
         Vector2 movement = _moveAct.ReadValue<Vector2>();
         float lateral = movement.x;
@@ -74,15 +78,16 @@ public class PlayerController : MonoBehaviour
             _jumpHold.Zero();
         }
 
-        if (!_knockback.isActive)
+        if (!_knockback.isActive && !_dashAtk.isActive)
         {
-            currSpeed = Mathf.Lerp(currSpeed, floorSpeed * lateral, accelSpeed);
+            float modAccelSpeed = currSpeed * floorSpeed * lateral == 0 ? accelSpeed / 2 : accelSpeed;
+            currSpeed = Mathf.Lerp(currSpeed, floorSpeed * lateral, modAccelSpeed);
         }
-        else
+        else if (_knockback.isActive)
         {
             currSpeed -= knockbackDecel;
-        }
-        transform.localScale = Util.SetX(transform.localScale, lateral > 0 ? 1 : lateral < 0 ? -1 : transform.localScale.x);
+        } 
+        transform.localScale = Util.SetX(transform.localScale, lateral > 0 ? 1 : lateral < 0 ? -1 : playerDir);
 
         _rb.velocity = new Vector2(currSpeed, _rb.velocity.y);
         _rb.velocity -= new Vector2(0, gravity) * Time.fixedDeltaTime;
@@ -117,10 +122,21 @@ public class PlayerController : MonoBehaviour
 
     public void Knockback(float xDist, float yDist)
     {
+        if (_dashAtk.isActive) return;
         IsJumping = false;
         
-        currSpeed = Mathf.Sqrt(2 * knockbackDecel/Time.fixedDeltaTime * xDist);
+        currSpeed = Mathf.Sign(xDist) * Mathf.Sqrt(2 * knockbackDecel/Time.fixedDeltaTime * Mathf.Abs(xDist));
         _rb.velocity = _rb.velocity * Vector2.right + Mathf.Sqrt(2 * yDist * gravity) * Vector2.up;
         _knockback.Restart();
+    }
+
+    public void Dash(uint frames)
+    {
+        _dashAtk.RestartAt(frames);
+    }
+
+    public void SetXVel(float xvel)
+    {
+        _rb.velocity = new Vector2(xvel, _rb.velocity.y);
     }
 }

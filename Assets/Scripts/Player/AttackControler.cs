@@ -12,12 +12,14 @@ public class AttackControler : MonoBehaviour
 
     private bool _didAtk_0;
     private bool _didAtk_1;
+    private PlayerController _controller;
 
 
     void Awake()
     {
         _atk_0 = InputSystem.actions.FindAction("Attack_0");
         _atk_1 = InputSystem.actions.FindAction("Attack_1");
+        _controller = GetComponent<PlayerController>();
     }
 
 

@@ -786,8 +786,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atkObj: {fileID: 179132408}
-  atkTime: 10
+  atkTime: 14
   baseDmg: 100
+  dashPosition:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0022888184
+      value: 0
+      inSlope: 0.35605735
+      outSlope: 0.35605735
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.7637526
+    - serializedVersion: 3
+      time: 0.28208575
+      value: 0.1573232
+      inSlope: 1.208223
+      outSlope: 1.208223
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.41763616
+      outWeight: 0.08939775
+    - serializedVersion: 3
+      time: 0.86115605
+      value: 0.9352985
+      inSlope: 0.77202255
+      outSlope: 0.77202255
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.6696192
+    - serializedVersion: 3
+      time: 1
+      value: 1.0023575
+      inSlope: 0.28227183
+      outSlope: 0.28227183
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.84247035
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &215787046
 MonoBehaviour:
   m_ObjectHideFlags: 0
