@@ -787,6 +787,8 @@ MonoBehaviour:
   atkObj: {fileID: 179132408}
   atkTime: 14
   baseDmg: 100
+  xKb: 70
+  yKb: 20
   dashPosition:
     serializedVersion: 2
     m_Curve:
@@ -1300,7 +1302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 13
-  knockbackFreezeTime: 15
+  knockbackFreezeTime: 10
   jumpHeight: 4
   jumpRange: 5
   jumpDelay: 20

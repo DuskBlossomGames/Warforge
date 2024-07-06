@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (_knockback.isActive)
         {
-            currSpeed -= knockbackDecel;
+            currSpeed -= _knockbackDecel * Time.fixedDeltaTime;
         } 
         transform.localScale = Util.SetX(transform.localScale, lateral > 0 ? 1 : lateral < 0 ? -1 : playerDir);
 
