@@ -10,6 +10,9 @@ namespace LevelManaging
 {
     public class EnemySpawner : MonoBehaviour
     {
+        // TODO: debugging only
+        public bool enemyTest;
+        
         public GameObject[] enemyPrefabs;
         public GameObject elevator, doorLeft, doorRight;
         public uint doorRaiseTime, doorFallTime;
@@ -104,7 +107,7 @@ namespace LevelManaging
         
         private void Spawn()
         {
-            var num = Random.Range(1, 5);
+            var num = enemyTest ? 1 : Random.Range(1, 5);
             
             var camWidth = Camera.main!.aspect * Camera.main.orthographicSize;
             var enemyWidth = Prefab.transform.localScale.x;

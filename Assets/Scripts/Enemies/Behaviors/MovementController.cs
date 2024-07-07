@@ -19,7 +19,7 @@ namespace Enemies.Behaviors
         private EventWindow _knockback;
         private float _knockbackDecel;
         
-        public enum MoveMode { NONE, PLAYER }
+        public enum MoveMode { NONE, PLAYER, PLAYER_AWAY }
         
         private void Start()
         {
@@ -36,9 +36,11 @@ namespace Enemies.Behaviors
             
             if (!_knockback.isActive)
             {
-                if (mode == MoveMode.PLAYER)
+                if (mode is MoveMode.PLAYER or MoveMode.PLAYER_AWAY)
                 {
                     var dist = PlayerController.Player.transform.position.x - transform.position.x;
+                    if (mode == MoveMode.PLAYER_AWAY) dist *= -1;
+                    
                     _curSpeed = Mathf.Lerp(_curSpeed, Mathf.Sign(dist) * maxSpeed, accel);
 
                     transform.localScale = Util.SetX(transform.localScale, Mathf.Abs(transform.localScale.x)*Mathf.Sign(dist));

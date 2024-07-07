@@ -15,7 +15,6 @@ namespace Enemies
         private MovementController _mc;
         private SpriteRenderer _sr;
         private EventWindow _telegraph;
-
         private Color _origColor;
 
         private void Awake()
