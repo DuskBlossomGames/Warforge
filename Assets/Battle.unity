@@ -641,8 +641,8 @@ Transform:
   m_GameObject: {fileID: 179132408}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -0.2, z: -1}
-  m_LocalScale: {x: 1.5, y: 0.7, z: 1}
+  m_LocalPosition: {x: 1.5, y: -0.2, z: -1}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 215787043}
@@ -1030,8 +1030,8 @@ MonoBehaviour:
   atkObj: {fileID: 179132408}
   atkTime: 14
   baseDmg: 100
-  xKb: 4
-  yKb: 1
+  xKb: 10
+  yKb: 2
   yvelDec: 0.9
   dashPosition:
     serializedVersion: 2
@@ -1422,6 +1422,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1522,6 +1523,19 @@ MonoBehaviour:
   textSize: 30
   textPrefab: {fileID: 1936394147876625980, guid: b066010e9aee6e541992d8a16e3bdab9, type: 3}
   canvas: {fileID: 1928881231}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116b6eeaff2307d43a402d60457fd9d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 215787043}
 --- !u!1 &878123130
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,7 +39,8 @@ namespace LevelManaging
             {
                 elevator.transform.position += _displacementPerFrame * Vector3.up;
                 player.transform.position += _displacementPerFrame * Vector3.up;
-                _cam.transform.position += _displacementPerFrame * Vector3.up;
+                //_cam.transform.position += _displacementPerFrame * Vector3.up;
+                _cam.GetComponent<CamTrack>().isFloat = true;
 
                 if (_elevatorRaise.time == elevatorRaiseTime / 2)
                 {
@@ -53,6 +54,7 @@ namespace LevelManaging
                 if (_elevatorRaise.time == 0)
                 {
                     Spawn();
+                    _cam.GetComponent<CamTrack>().isFloat = false;
                 }
             }
             
@@ -68,7 +70,7 @@ namespace LevelManaging
         
         private void Spawn()
         {
-            var num = Random.Range(1, 5);
+            var num = Random.Range(1, 15);
             
             var camWidth = Camera.main!.aspect * Camera.main.orthographicSize;
             var enemyWidth = enemyPrefab.transform.localScale.x;

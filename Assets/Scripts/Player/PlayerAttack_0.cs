@@ -63,6 +63,11 @@ public class PlayerAttack_0 : MonoBehaviour
                 {
                     cd.StunFor(25);
                 }
+
+                if (target.transform.parent.TryGetComponent<EnemyInfo>(out var comp))
+                {
+                    comp.Damage((uint)Mathf.FloorToInt((float)baseDmg * Random.Range(.85f, 1.15f)));
+                }
             }
 
             _isAttacking = _atkTimer.isActive;
