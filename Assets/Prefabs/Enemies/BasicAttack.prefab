@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitbox: {fileID: 3335481051714093373}
-  damage: 30
+  damage: 50
   time: 30
   xKb: 5
   yKb: 1
