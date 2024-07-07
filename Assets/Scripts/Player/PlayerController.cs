@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private InputAction _moveAct;
     private InputAction _jumpAct;
+    private InputAction _upgradeAct;
     private bool _hasJumped;
     private float _jumpVel;
     private float _jumpShortDelta;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _moveAct = InputSystem.actions.FindAction("Move");
         _jumpAct = InputSystem.actions.FindAction("Jump");
+        _upgradeAct = InputSystem.actions.FindAction("Upgrade");
         _jumpVel = Mathf.Sqrt(2 * jumpHeight * gravity);
         _jumpShortDelta = Mathf.Sqrt(2 * jumpShortHeight * gravity) - _jumpVel;
         _jumpHold = new(0);
@@ -120,6 +122,11 @@ public class PlayerController : MonoBehaviour
         {
             _hasJumped = true;
         }
+
+        if (_upgradeAct.WasPressedThisFrame() && xpLevels[_upgradeLevel] <= _currentXp)
+        {
+            ClaimUpgrade();
+        }
     }
 
     bool DidJump()
@@ -137,15 +144,19 @@ public class PlayerController : MonoBehaviour
         _currentXp += xp;
         if (xpLevels[_upgradeLevel] <= _currentXp)
         {
-            _currentXp -= xpLevels[_upgradeLevel++];
-            
-            _curHealth = maxHealth;
-            healthBar.UpdatePercent(0);
-            
-            StartCoroutine(ChooseUpgrade());
         }
         
         xpBar.UpdateText(_currentXp, xpLevels[_upgradeLevel]);
+    }
+
+    public void ClaimUpgrade()
+    {
+        _currentXp -= xpLevels[_upgradeLevel++];
+            
+        _curHealth = maxHealth;
+        healthBar.UpdatePercent(0);
+            
+        StartCoroutine(ChooseUpgrade());
     }
 
     public IEnumerator ChooseUpgrade()
