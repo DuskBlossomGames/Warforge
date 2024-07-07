@@ -41,7 +41,7 @@ namespace Enemies.Behaviors
                     var dist = PlayerController.Player.transform.position.x - transform.position.x;
                     _curSpeed = Mathf.Lerp(_curSpeed, Mathf.Sign(dist) * maxSpeed, accel);
 
-                    transform.localScale = Util.SetX(transform.localScale, transform.localScale.x*Mathf.Sign(dist));
+                    transform.localScale = Util.SetX(transform.localScale, Mathf.Abs(transform.localScale.x)*Mathf.Sign(dist));
                 }
                 else
                 {
@@ -64,8 +64,8 @@ namespace Enemies.Behaviors
         
         public void Knockback(float xDist, float yDist)
         {
-            xDist += Random.value;
-            yDist += Random.value;
+            xDist += Mathf.Sign(xDist)*2*Random.value;
+            yDist += Mathf.Sign(yDist)*2*Random.value;
             
             _knockbackDecel = 2 * xDist / Mathf.Pow(knockbackFreezeTime * Time.fixedDeltaTime, 2);
         

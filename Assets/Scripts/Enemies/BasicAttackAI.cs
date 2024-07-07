@@ -1,5 +1,6 @@
 using System;
 using Enemies.Behaviors;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Enemies
@@ -31,7 +32,7 @@ namespace Enemies
             _telegraph.Tick();
             
             var dist = Mathf.Abs(PlayerController.Player.transform.position.x - transform.position.x);
-            _mc.mode = dist < attackRange
+            _mc.mode = dist < attackRange || _ma.IsAttacking
                 ? MovementController.MoveMode.NONE
                 : MovementController.MoveMode.PLAYER;
 
@@ -43,7 +44,7 @@ namespace Enemies
                     SetLayerOrder(-25);
                     _ma.Attack();
                 }
-            } else if (dist < attackRange && !_ma.IsAttacking)
+            } else if (dist < attackRange && !_ma.IsAttacking && !PlayerController.Player.IsJumping)
             {
                 _telegraph.Restart();
                 _sr.color = telegraphColor;

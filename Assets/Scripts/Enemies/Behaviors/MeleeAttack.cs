@@ -29,7 +29,8 @@ namespace Enemies.Behaviors
             
             foreach (var col in _ca.GetColliders())
             {
-                if (!col.TryGetComponent<PlayerController>(out var player)) continue;
+                var player = col.GetComponentInParent<PlayerController>();
+                if (player == null) continue;
                 
                 player.Damage(damage);
                 player.Knockback(xKb, yKb);
