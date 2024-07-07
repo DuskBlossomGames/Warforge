@@ -43,7 +43,7 @@ namespace Enemies
                     SetLayerOrder(-25);
                     _ma.Attack();
                 }
-            } else if (dist < attackRange && !_ma.IsAttacking && !PlayerController.Player.IsJumping)
+            } else if (dist < attackRange && !_ma.IsAttacking && PlayerController.Player.floorCheck.isGrounded)
             {
                 _telegraph.Restart();
                 _sr.color = telegraphColor;

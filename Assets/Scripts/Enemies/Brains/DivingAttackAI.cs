@@ -84,11 +84,11 @@ namespace Enemies
             {
                 if (_mc.mode == MovementController.MoveMode.PLAYER)
                 {
-                    _rb.velocity = Util.SetY(_rb.velocity, yDist > 1 ? -flySpeed : 0);
+                    _rb.velocity = Util.SetY(_rb.velocity, yDist > 0.25 ? -flySpeed : 0);
                 }
                 else
                 {
-                    if (Mathf.Abs(yDist - hoverTargDist) < 1)
+                    if (hoverTargDist - yDist < 0.25)
                     {
                         _rb.velocity = Util.SetY(_rb.velocity, 0);
                         _attacking = false;
@@ -97,7 +97,7 @@ namespace Enemies
                     }
                 }
                 
-                if (Mathf.Abs(dist) < 1.5)
+                if (Mathf.Abs(dist) < 1.25)
                 {
                     _mc.mode = MovementController.MoveMode.PLAYER_AWAY;
                     _rb.velocity = Util.SetY(_rb.velocity, flySpeed);

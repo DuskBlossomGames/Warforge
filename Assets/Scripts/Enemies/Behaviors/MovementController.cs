@@ -67,7 +67,6 @@ namespace Enemies.Behaviors
         public void Knockback(float xDist, float yDist)
         {
             xDist += Mathf.Sign(xDist)*2*Random.value;
-            yDist += Mathf.Sign(yDist)*2*Random.value;
             
             _knockbackDecel = 2 * xDist / Mathf.Pow(knockbackFreezeTime * Time.fixedDeltaTime, 2);
         

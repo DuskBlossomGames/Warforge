@@ -1924,9 +1924,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7612b63b8d496197abbbba1bf1148a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTest: 1
+  enemyTest: 0
   enemyPrefabs:
+  - {fileID: 3177737458642001020, guid: 07930b383045e405ea425ae2302d8790, type: 3}
   - {fileID: 3177737458642001020, guid: 474fa16d045f04a4f8c854d97c261ec9, type: 3}
+  - {fileID: 3177737458642001020, guid: 8f0d7f14dd54d4343a01fbfdaf8d5466, type: 3}
   elevator: {fileID: 425561068}
   doorLeft: {fileID: 1286046558}
   doorRight: {fileID: 338897518}
