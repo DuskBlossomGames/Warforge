@@ -122,8 +122,7 @@ public class PlayerController : MonoBehaviour
         {
             _hasJumped = true;
         }
-
-        if (_upgradeAct.WasPressedThisFrame() && xpLevels[_upgradeLevel] <= _currentXp)
+        if (_upgradeAct.WasPressedThisFrame() && !PauseManager.Frozen && xpLevels[_upgradeLevel] <= _currentXp)
         {
             ClaimUpgrade();
         }
@@ -142,24 +141,22 @@ public class PlayerController : MonoBehaviour
     public void GainXp(int xp)
     {
         _currentXp += xp;
-        if (xpLevels[_upgradeLevel] <= _currentXp)
-        {
-        }
         
         xpBar.UpdateText(_currentXp, xpLevels[_upgradeLevel]);
     }
 
-    public void ClaimUpgrade()
+    private void ClaimUpgrade()
     {
         _currentXp -= xpLevels[_upgradeLevel++];
-            
+        xpBar.UpdateText(_currentXp, xpLevels[_upgradeLevel]);
+        
         _curHealth = maxHealth;
         healthBar.UpdatePercent(0);
             
         StartCoroutine(ChooseUpgrade());
     }
 
-    public IEnumerator ChooseUpgrade()
+    private IEnumerator ChooseUpgrade()
     {
         PauseManager.Freeze();
         yield return 0;
