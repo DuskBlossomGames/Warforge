@@ -12,8 +12,8 @@ public class DmgNumInstancer : MonoBehaviour
 
     public void Spawn(int num, Vector2 loc)
     {
-        var screenLoc = Camera.main.WorldToScreenPoint(loc);
-        var text = Instantiate(textPrefab, screenLoc, Quaternion.identity, canvas);
+        // var screenLoc = Camera.main.WorldToScreenPoint(loc);
+        var text = Instantiate(textPrefab, loc, Quaternion.identity, canvas);
         text.GetComponent<DmgNumFloat>().Spawn(maxlife, riseSpeed);
         text.GetComponent<UnityEngine.UI.Text>().fontSize = textSize;
         text.GetComponent<UnityEngine.UI.Text>().text = num.ToString();

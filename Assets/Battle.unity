@@ -1931,7 +1931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   riseSpeed: 50
   maxlife: 1
-  textSize: 30
+  textSize: 70
   textPrefab: {fileID: 1936394147876625980, guid: b066010e9aee6e541992d8a16e3bdab9, type: 3}
   canvas: {fileID: 1928881231}
 --- !u!1 &624498184
@@ -4128,7 +4128,7 @@ GameObject:
   - component: {fileID: 1928881229}
   - component: {fileID: 1928881228}
   m_Layer: 5
-  m_Name: Level ID
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
