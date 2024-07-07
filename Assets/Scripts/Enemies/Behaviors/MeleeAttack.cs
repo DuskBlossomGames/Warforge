@@ -33,7 +33,7 @@ namespace Enemies.Behaviors
                 if (player == null) continue;
                 
                 player.Damage(damage);
-                player.Knockback(xKb, yKb);
+                player.Knockback(xKb*Mathf.Sign(player.transform.position.x - transform.position.x), yKb);
             }
         }
 
