@@ -10,14 +10,15 @@ namespace LevelManaging
 {
     public class EnemySpawner : MonoBehaviour
     {
-        public GameObject enemyPrefab;
+        public GameObject[] enemyPrefabs;
         public GameObject elevator, doorLeft, doorRight;
         public uint doorRaiseTime, doorFallTime;
         public float elevatorVel;
         public uint elevatorRaiseTime;
-        public PlayerController player;
         public UnityEngine.UI.Text leveltext;
 
+        private GameObject Prefab => enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+        
         private readonly List<GameObject> _enemies = new();
         private EventWindow _elevatorRaise, _doorRaise, _doorFall;
         private Camera _cam;
@@ -44,13 +45,13 @@ namespace LevelManaging
             if (_elevatorRaise.isActive)
             {
                 elevator.transform.position += _displacementPerFrame * Vector3.up;
-                player.transform.position += _displacementPerFrame * Vector3.up;
+                PlayerController.Player.transform.position += _displacementPerFrame * Vector3.up;
                 _cam.transform.position += _displacementPerFrame * Vector3.up;
 
                 if (_elevatorRaise.time == elevatorRaiseTime / 2)
                 {
                     elevator.transform.position -= elevatorRaiseTime * _displacementPerFrame * Vector3.up;
-                    player.transform.position -= elevatorRaiseTime * _displacementPerFrame * Vector3.up;
+                    PlayerController.Player.transform.position -= elevatorRaiseTime * _displacementPerFrame * Vector3.up;
                     _cam.transform.position -= elevatorRaiseTime * _displacementPerFrame * Vector3.up;
                     _levelID += 1;
                     leveltext.text = _levelID.ToString();
@@ -97,7 +98,7 @@ namespace LevelManaging
 
         private IEnumerator RaiseElevator()
         {
-            yield return new WaitUntil(() => Mathf.Abs(player.transform.position.x) <= 7.5);
+            yield return new WaitUntil(() => Mathf.Abs(PlayerController.Player.transform.position.x) <= 7.5);
             _doorFall.Restart();
         }
         
@@ -106,19 +107,13 @@ namespace LevelManaging
             var num = Random.Range(1, 5);
             
             var camWidth = Camera.main!.aspect * Camera.main.orthographicSize;
-            var enemyWidth = enemyPrefab.transform.localScale.x;
+            var enemyWidth = Prefab.transform.localScale.x;
 
             for (var i = 0; i < num; i++)
             {
                 var left = i < num / 2;
                 
-                var enemy = Instantiate(enemyPrefab);
-                if (enemy.TryGetComponent<RunAtPlayerAI>(out var ai))
-                {
-                    ai.player = player;
-                }
-
-                enemy.GetComponent<EnemyInfo>().player = player;
+                var enemy = Instantiate(Prefab);
                 enemy.transform.position = new Vector3((left ? -1 : 1) *
                                                        (camWidth+1+enemyWidth/2 + enemyWidth*3/2*(left ? i : i-num/2)), 0, 0);
                 

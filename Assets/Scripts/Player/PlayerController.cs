@@ -10,6 +10,8 @@ using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Player { get; private set; }
+    
     public int[] xpLevels;
     private int _upgradeLevel;
     private int _currentXp;
@@ -54,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Player = this;
+        
         _curHealth = maxHealth;
         
         _rb = GetComponent<Rigidbody2D>();

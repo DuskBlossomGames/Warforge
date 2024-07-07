@@ -1649,7 +1649,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 425561072}
-  - component: {fileID: 425561073}
   - component: {fileID: 425561071}
   - component: {fileID: 425561070}
   - component: {fileID: 425561069}
@@ -1799,28 +1798,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &425561073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 425561068}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7612b63b8d496197abbbba1bf1148a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3177737458642001020, guid: 8f0d7f14dd54d4343a01fbfdaf8d5466, type: 3}
-  elevator: {fileID: 425561068}
-  doorLeft: {fileID: 1286046558}
-  doorRight: {fileID: 338897518}
-  doorRaiseTime: 75
-  doorFallTime: 10
-  elevatorVel: 10
-  elevatorRaiseTime: 150
-  player: {fileID: 215787044}
-  leveltext: {fileID: 1477382116}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,6 +1810,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1934,6 +1912,29 @@ MonoBehaviour:
   textSize: 70
   textPrefab: {fileID: 1936394147876625980, guid: b066010e9aee6e541992d8a16e3bdab9, type: 3}
   canvas: {fileID: 1928881231}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7612b63b8d496197abbbba1bf1148a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 3177737458642001020, guid: 07930b383045e405ea425ae2302d8790, type: 3}
+  - {fileID: 3177737458642001020, guid: 8f0d7f14dd54d4343a01fbfdaf8d5466, type: 3}
+  elevator: {fileID: 425561068}
+  doorLeft: {fileID: 1286046558}
+  doorRight: {fileID: 338897518}
+  doorRaiseTime: 75
+  doorFallTime: 10
+  elevatorVel: 10
+  elevatorRaiseTime: 150
+  leveltext: {fileID: 1477382116}
 --- !u!1 &624498184
 GameObject:
   m_ObjectHideFlags: 0
