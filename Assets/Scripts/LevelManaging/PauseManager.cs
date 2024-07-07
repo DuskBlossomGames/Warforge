@@ -5,6 +5,7 @@ namespace LevelManaging
 {
     public class PauseManager : MonoBehaviour
     {
+
         private static SpriteRenderer _sr;
 
         private void Awake()

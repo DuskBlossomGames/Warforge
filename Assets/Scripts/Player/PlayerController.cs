@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using HUD;
 using LevelManaging;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public int[] xpLevels;
     private int _upgradeLevel;
     private int _currentXp;
+
+    public GameObject upgradeChoices;
     
     public HUDBar xpBar, healthBar;
     public float maxHealth;
@@ -135,18 +138,43 @@ public class PlayerController : MonoBehaviour
         if (xpLevels[_upgradeLevel] <= _currentXp)
         {
             _currentXp -= xpLevels[_upgradeLevel++];
+            
+            _curHealth = maxHealth;
+            healthBar.UpdatePercent(0);
+            
             StartCoroutine(ChooseUpgrade());
         }
         
-        xpBar.UpdatePercent((float) _currentXp / xpLevels[_upgradeLevel]);
+        xpBar.UpdateText(_currentXp, xpLevels[_upgradeLevel]);
     }
 
     public IEnumerator ChooseUpgrade()
     {
         PauseManager.Freeze();
         yield return 0;
+        
         currSpeed = 0;
         gameObject.transform.position = new Vector3();
+        upgradeChoices.SetActive(true);
+
+        var buttons = upgradeChoices.GetComponentsInChildren<Button>();
+        
+        Action select = null;
+        select = () =>
+        {
+            PauseManager.Unfreeze();
+            upgradeChoices.SetActive(false);
+
+            foreach (var button in buttons)
+            {
+                button.OnClick -= select;
+            }
+        };
+        
+        foreach (var button in buttons)
+        {
+            button.OnClick += select;
+        }
     }
 
     public void Damage(float damage)
