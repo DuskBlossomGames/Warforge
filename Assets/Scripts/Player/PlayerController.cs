@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using HUD;
+using LevelManaging;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -133,11 +134,19 @@ public class PlayerController : MonoBehaviour
         _currentXp += xp;
         if (xpLevels[_upgradeLevel] <= _currentXp)
         {
-            // TODO: upgrade
             _currentXp -= xpLevels[_upgradeLevel++];
+            StartCoroutine(ChooseUpgrade());
         }
         
         xpBar.UpdatePercent((float) _currentXp / xpLevels[_upgradeLevel]);
+    }
+
+    public IEnumerator ChooseUpgrade()
+    {
+        PauseManager.Freeze();
+        yield return 0;
+        currSpeed = 0;
+        gameObject.transform.position = new Vector3();
     }
 
     public void Damage(float damage)
