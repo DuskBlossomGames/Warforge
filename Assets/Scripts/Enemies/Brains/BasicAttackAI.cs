@@ -1,6 +1,5 @@
 using System;
 using Enemies.Behaviors;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Enemies
