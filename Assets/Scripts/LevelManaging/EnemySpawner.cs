@@ -50,6 +50,7 @@ namespace LevelManaging
                 elevator.transform.position += _displacementPerFrame * Vector3.up;
                 PlayerController.Player.transform.position += _displacementPerFrame * Vector3.up;
                 _cam.transform.position += _displacementPerFrame * Vector3.up;
+                _cam.GetComponent<CamTrack>().isFloat = true;
 
                 if (_elevatorRaise.time == elevatorRaiseTime / 2)
                 {
@@ -63,6 +64,7 @@ namespace LevelManaging
                 if (_elevatorRaise.time == 0)
                 {
                     _doorRaise.Restart();
+                    _cam.GetComponent<CamTrack>().isFloat = false;
                 }
             }
 
