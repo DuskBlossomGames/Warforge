@@ -1,16 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using HUD;
+using LevelManaging;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Player { get; private set; }
+    
     public int[] xpLevels;
     private int _upgradeLevel;
     private int _currentXp;
+
+    public GameObject upgradeChoices;
     
     public HUDBar xpBar, healthBar;
     public float maxHealth;
@@ -41,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private InputAction _moveAct;
     private InputAction _jumpAct;
+    private InputAction _upgradeAct;
     private bool _hasJumped;
     private float _jumpVel;
     private float _jumpShortDelta;
@@ -49,11 +56,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        Player = this;
+        
         _curHealth = maxHealth;
         
         _rb = GetComponent<Rigidbody2D>();
         _moveAct = InputSystem.actions.FindAction("Move");
         _jumpAct = InputSystem.actions.FindAction("Jump");
+        _upgradeAct = InputSystem.actions.FindAction("Upgrade");
         _jumpVel = Mathf.Sqrt(2 * jumpHeight * gravity);
         _jumpShortDelta = Mathf.Sqrt(2 * jumpShortHeight * gravity) - _jumpVel;
         _jumpHold = new(0);
@@ -116,6 +126,10 @@ public class PlayerController : MonoBehaviour
         {
             _hasJumped = true;
         }
+        if (_upgradeAct.WasPressedThisFrame() && !PauseManager.Frozen && xpLevels[_upgradeLevel] <= _currentXp)
+        {
+            ClaimUpgrade();
+        }
     }
 
     bool DidJump()
@@ -131,13 +145,48 @@ public class PlayerController : MonoBehaviour
     public void GainXp(int xp)
     {
         _currentXp += xp;
-        if (xpLevels[_upgradeLevel] <= _currentXp)
-        {
-            // TODO: upgrade
-            _currentXp -= xpLevels[_upgradeLevel++];
-        }
         
-        xpBar.UpdatePercent((float) _currentXp / xpLevels[_upgradeLevel]);
+        xpBar.UpdateText(_currentXp, xpLevels[_upgradeLevel]);
+    }
+
+    private void ClaimUpgrade()
+    {
+        _currentXp -= xpLevels[_upgradeLevel++];
+        xpBar.UpdateText(_currentXp, xpLevels[_upgradeLevel]);
+        
+        _curHealth = maxHealth;
+        healthBar.UpdatePercent(0);
+            
+        StartCoroutine(ChooseUpgrade());
+    }
+
+    private IEnumerator ChooseUpgrade()
+    {
+        PauseManager.Freeze();
+        yield return 0;
+        
+        currSpeed = 0;
+        gameObject.transform.position = new Vector3();
+        upgradeChoices.SetActive(true);
+
+        var buttons = upgradeChoices.GetComponentsInChildren<Button>();
+        
+        Action select = null;
+        select = () =>
+        {
+            PauseManager.Unfreeze();
+            upgradeChoices.SetActive(false);
+
+            foreach (var button in buttons)
+            {
+                button.OnClick -= select;
+            }
+        };
+        
+        foreach (var button in buttons)
+        {
+            button.OnClick += select;
+        }
     }
 
     public void Damage(float damage)

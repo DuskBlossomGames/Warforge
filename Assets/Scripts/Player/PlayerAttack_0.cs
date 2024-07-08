@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
+using Enemies.Behaviors;
 using UnityEngine;
 
 public class PlayerAttack_0 : MonoBehaviour
@@ -54,9 +55,9 @@ public class PlayerAttack_0 : MonoBehaviour
 
             foreach (var target in _atkCollider.GetColliders())
             {
-                if (target.transform.parent.TryGetComponent<RunAtPlayerAI>(out var ai))
+                if (target.transform.parent.TryGetComponent<MovementController>(out var mc))
                 {
-                    ai.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, 0);
+                    mc.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, 0);
                 }
 
                 if (target.transform.TryGetComponent<CollisionDamage>(out var cd))
@@ -79,9 +80,9 @@ public class PlayerAttack_0 : MonoBehaviour
                     if (target.transform.parent.TryGetComponent<EnemyInfo>(out var comp))
                     {
                         comp.Damage((uint)Mathf.FloorToInt((float)baseDmg * Random.Range(.85f, 1.15f)));
-                        if (target.transform.parent.TryGetComponent<RunAtPlayerAI>(out var ai))
+                        if (target.transform.parent.TryGetComponent<MovementController>(out var mc))
                         {
-                            ai.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, yKb);
+                            mc.Knockback(Mathf.Sign(target.transform.position.x - transform.position.x) * xKb, yKb);
                         }
                     }
                 }

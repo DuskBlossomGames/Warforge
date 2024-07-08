@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed918dc25e9e44239b9ade94b233813b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
-  xKb: 5
+  damage: 100
+  xKb: 5.5
   yKb: 1
 --- !u!1 &3177737458642001020
 GameObject:
@@ -106,9 +106,10 @@ GameObject:
   - component: {fileID: 4096105359908221670}
   - component: {fileID: 5326599476989559784}
   - component: {fileID: 5497962289370678527}
-  - component: {fileID: 613561370396376555}
+  - component: {fileID: 8008411447629507608}
+  - component: {fileID: 6414903603135435434}
   m_Layer: 9
-  m_Name: Enemy
+  m_Name: DiveAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +174,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.25943398, b: 0.25943398, a: 1}
+  m_Color: {r: 1, g: 0.2588235, b: 0.8316121, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -195,8 +196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0935aae79cdd7248818992bd97c6159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxhealth: 300
-  currhealth: 300
+  maxhealth: 150
+  currhealth: 150
   xp: 15
   resistance: 0
 --- !u!50 &5326599476989559784
@@ -271,7 +272,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &613561370396376555
+--- !u!114 &8008411447629507608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -280,16 +281,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 3177737458642001020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb133abdafca4379bb99c38811c063c4, type: 3}
+  m_Script: {fileID: 11500000, guid: f45fada6c1864ec48d797098ca16d7c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 13
+  gravity: 0
   knockbackFreezeTime: 15
-  jumpHeight: 4
-  jumpRange: 5
-  jumpDelay: 20
+  jumpHeight: 0
   accel: 0.25
-  player: {fileID: 0}
+  mode: 0
+--- !u!114 &6414903603135435434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3177737458642001020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d770117409941d989a40e5d3c2e7375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverHeight: 10
+  hoverMinDist: 5
+  hoverTargDist: 10
+  hoverMaxDist: 15
+  flySpeed: 13
+  telegraphTime: 15
+  attackCooldown: 200
+  telegraphColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &7203977140731695798
 GameObject:
   m_ObjectHideFlags: 0
