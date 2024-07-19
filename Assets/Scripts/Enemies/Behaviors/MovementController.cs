@@ -71,7 +71,7 @@ namespace Enemies.Behaviors
             _knockbackDecel = 2 * xDist / Mathf.Pow(knockbackFreezeTime * Time.fixedDeltaTime, 2);
         
             _curSpeed = Mathf.Sign(xDist)*Mathf.Sqrt(2 * Mathf.Abs(_knockbackDecel * xDist));
-            _rb.velocity = _curSpeed * Vector2.right + Mathf.Sqrt(2 * yDist * gravity) * Vector2.up;
+            _rb.velocity = _curSpeed * Vector2.right + Mathf.Sign(yDist)*Mathf.Sqrt(2 * Mathf.Abs(yDist) * gravity) * Vector2.up;
             _knockback.Restart();
         }
     }

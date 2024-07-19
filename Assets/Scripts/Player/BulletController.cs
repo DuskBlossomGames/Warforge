@@ -33,6 +33,7 @@ namespace DefaultNamespace.Player
 
             _xKb = kb * Mathf.Cos(angle);
             _yKb = kb * Mathf.Sin(angle);
+            
             _dmg = dmg;
             _pierce = pierce;
 

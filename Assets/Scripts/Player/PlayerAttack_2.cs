@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DefaultNamespace.Player;
 using Unity.VisualScripting.FullSerializer.Internal.Converters;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class PlayerAttack_2 : MonoBehaviour
     private EventWindow _spawnTimer;
     private uint _spawnedBullets;
     private Vector3 _spawnPos;
+    private List<BulletController> _bullets;
 
     private void Awake()
     {
@@ -41,6 +43,7 @@ public class PlayerAttack_2 : MonoBehaviour
             _spawnTimer.Restart();
             _isAttacking = true;
             _spawnedBullets = 0;
+            _bullets = new List<BulletController>();
         }
     }
 
@@ -63,13 +66,19 @@ public class PlayerAttack_2 : MonoBehaviour
                 bullet.transform.rotation = Quaternion.Euler(0, 0, deg);
 
                 var rad = deg * Mathf.Deg2Rad;
-                Debug.Log(_spawnPos);
                 bullet.transform.position = _spawnPos + new Vector3(spawnDist*Mathf.Cos(rad),
                     spawnDist*Mathf.Sin(rad), 0); 
                 
-                bullet.GetComponent<BulletController>().Shoot(bulletVel, kb, baseDmg, bulletRange, pierce);
+                _bullets.Add(bullet.GetComponent<BulletController>());
                 
                 _spawnedBullets += 1;
+            }
+
+            if (_spawnedBullets == numBullets)
+            {
+                _bullets.ForEach(b =>
+                    b.Shoot(bulletVel, kb, baseDmg, bulletRange, pierce));
+                _spawnedBullets++;
             }
             
             _isAttacking = _atkTimer.isActive;
