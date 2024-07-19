@@ -18,6 +18,12 @@ public class AttackControler : MonoBehaviour
     private EventWindow _cd_1 = new(5);
     private EventWindow _atk1_prebuffer = new(0);
     private bool _didAtk_1;
+    
+    public PlayerAttack_2 attack_2_script;
+    private InputAction _atk_2;
+    private EventWindow _cd_2 = new(5);
+    private EventWindow _atk2_prebuffer = new(0);
+    private bool _didAtk_2;
 
     private PlayerController _controller;
     private EventWindow _cooldown = new(0);
@@ -27,6 +33,7 @@ public class AttackControler : MonoBehaviour
     {
         _atk_0 = InputSystem.actions.FindAction("Attack_0");
         _atk_1 = InputSystem.actions.FindAction("Attack_1");
+        _atk_2 = InputSystem.actions.FindAction("Attack_2");
         _controller = GetComponent<PlayerController>();
     }
 
@@ -35,15 +42,16 @@ public class AttackControler : MonoBehaviour
     {
         _cd_0.Tick();
         _cd_1.Tick();
+        _cd_2.Tick();
         _cooldown.Tick();
         _atk0_prebuffer.Tick();
         _atk1_prebuffer.Tick();
+        _atk2_prebuffer.Tick();
 
         if (DidAtk_0())
         {
             _atk0_prebuffer.RestartAt(prebuffersize);
         }
-
         if (_atk0_prebuffer.isActive && _cd_0.hasEnded && _cooldown.hasEnded)
         {
             attack_0_script.Attack();
@@ -59,8 +67,20 @@ public class AttackControler : MonoBehaviour
         if (_atk1_prebuffer.isActive && _controller.floorCheck.isGrounded && _cd_1.hasEnded && _cooldown.hasEnded)
         {
             attack_1_script.Attack();
-            _cooldown.RestartAt(attack_0_script.atkTime);
+            _cooldown.RestartAt(attack_1_script.atkTime);
             _cd_1.Restart();
+            return;
+        }
+        
+        if (DidAtk_2())
+        {
+            _atk2_prebuffer.RestartAt(prebuffersize);
+        }
+        if (_atk2_prebuffer.isActive && !_controller.floorCheck.isGrounded && _cd_2.hasEnded && _cooldown.hasEnded)
+        {
+            attack_2_script.Attack();
+            _cooldown.RestartAt(attack_2_script.atkTime);
+            _cd_2.Restart();
             return;
         }
     }
@@ -73,6 +93,10 @@ public class AttackControler : MonoBehaviour
         if (_atk_1.WasPressedThisFrame())
         {
             _didAtk_1 = true;
+        }
+        if (_atk_2.WasPressedThisFrame())
+        {
+            _didAtk_2 = true;
         }
     }
     bool DidAtk_0()
@@ -89,6 +113,15 @@ public class AttackControler : MonoBehaviour
         if (_didAtk_1)
         {
             _didAtk_1 = false;
+            return true;
+        }
+        return false;
+    }
+    bool DidAtk_2()
+    {
+        if (_didAtk_2)
+        {
+            _didAtk_2 = false;
             return true;
         }
         return false;

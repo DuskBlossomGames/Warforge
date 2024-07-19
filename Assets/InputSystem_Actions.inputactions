@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Attack_2",
+                    "type": "Button",
+                    "id": "6a48555f-21c9-4be9-9fe0-f2c91886ac27",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Upgrade",
                     "type": "Button",
                     "id": "687fce17-346e-4427-85c3-224d6fb856b3",
@@ -280,6 +289,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Upgrade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8754c1f-b594-4cf1-a4ab-0b0ea05a501f",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Attack_2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e46852a-1b5a-4e41-88f4-fdcddc97d7fd",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack_2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
